@@ -11,11 +11,11 @@ public enum AdminType {
 
 	private List<Privilage> privlages;
 
-	AdminType(List<Privilage> privlages) {
+	private AdminType(List<Privilage> privlages) {
 		this.privlages = privlages;
 	}
 
-	List<Privilage> getPrivilages(){
+	public List<Privilage> getPrivilages(){
 		return this.privlages;
 	}
 

@@ -35,7 +35,4 @@ private String password;
 @Enumerated(EnumType.STRING)
 AdminType adminType;
 
-@OneToOne
-private WareHouse warehouse;
-
 }

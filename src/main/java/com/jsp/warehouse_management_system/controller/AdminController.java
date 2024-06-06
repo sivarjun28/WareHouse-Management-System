@@ -22,12 +22,12 @@ import jakarta.validation.Valid;
 
 @RestController
 @Controller
-@RequestMapping("/api/v2")
+@RequestMapping("/api/v1")
 public class AdminController {
 	
 @Autowired
 private AdminService userService;
-@PostMapping("/superadmin")
+@PostMapping("/register")
 public ResponseEntity<ResponseStructure<AdminResponse>> createSuperAdmin(@RequestBody @Valid AdminRequest adminRequest){
 	return userService.createSuperAdmin(adminRequest);	
 	}

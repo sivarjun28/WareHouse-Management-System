@@ -24,7 +24,7 @@ public class AdminResponse {
 	private String name;
 	private String email;
 	AdminType adminType;
-	List<Privilage> privilages;
+	
 	
 	
 }
