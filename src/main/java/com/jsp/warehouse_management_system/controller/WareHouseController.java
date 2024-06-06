@@ -17,12 +17,12 @@ import com.jsp.warehouse_management_system.util.ResponseStructure;
 
 
 @RestController 
-@RequestMapping("/api/v2")
+@RequestMapping("/api/v1")
 public class WareHouseController {
 
 	
 
-	@GetMapping("/warehouses")
+	@GetMapping("/warehouse")
 	public String createWareHouse(){
 
 		return "WareHouse found";   
