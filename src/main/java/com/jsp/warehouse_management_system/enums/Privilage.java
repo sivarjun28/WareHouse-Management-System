@@ -1,0 +1,23 @@
+package com.jsp.warehouse_management_system.enums;
+
+public enum Privilage {
+
+	CREATE_ADMIN,
+	CREATE_WAREHOUSE,
+	CREATE_ADDRESS,
+	CREATE_STORAGE,
+	
+	READ,
+	
+	UPADTE_ADMIN,
+	UPDATE_WAREHOUSE,
+	UPDATE_ADDRESS,
+	UPDATE_STORAGE,
+	
+
+	DELETE_ADMIN,
+	DELETE_WAREHOUSE,
+	DELETE_ADDRESS,
+	DELETE_STORAGE,
+	
+}
