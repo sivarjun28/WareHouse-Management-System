@@ -33,9 +33,9 @@ public ResponseEntity<ResponseStructure<AdminResponse>> createSuperAdmin(@Reques
 	}
  
 
-@PostMapping("/admins")
-public ResponseEntity<ResponseStructure<AdminResponse>> createAdmin(@RequestBody AdminRequest adminRequest){
-	return adminService.createAdmin(adminRequest);
+@PostMapping("/warehuses/{warehouseId}/admins")
+public ResponseEntity<ResponseStructure<AdminResponse>> createAdmin(int  wareHouseId, @RequestBody AdminRequest adminRequest){
+	return adminService.createAdmin(wareHouseId,adminRequest);
 	
 	
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.jsp.warehouse_management_system.exception.IllegalOperationException;
+import com.jsp.warehouse_management_system.exception.WareHouseNotFoundByIdException;
 
 @RestControllerAdvice
 public class ApplicationExceptionHandler {
@@ -53,4 +54,8 @@ public class ApplicationExceptionHandler {
  
 	}
 
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> wareHouseNotFoundByIdException(WareHouseNotFoundByIdException exe){
+		return errorResponse(HttpStatus.NOT_FOUND, exe.getMessage(), "Ware HOuse is Not Present");
+	}
 }

@@ -35,4 +35,6 @@ private String password;
 @Enumerated(EnumType.STRING)
 AdminType adminType;
 
+ 
+
 }
