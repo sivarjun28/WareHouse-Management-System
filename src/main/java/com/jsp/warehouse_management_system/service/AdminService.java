@@ -13,7 +13,10 @@ import com.jsp.warehouse_management_system.util.ResponseStructure;
 public interface AdminService {
 
 	
+	
+
 	public ResponseEntity<ResponseStructure<AdminResponse>> createSuperAdmin(AdminRequest adminRequest) ;
+	public ResponseEntity<ResponseStructure<AdminResponse>> createAdmin(int wareHouseId,AdminRequest adminRequest ) ;
 	
 	
 

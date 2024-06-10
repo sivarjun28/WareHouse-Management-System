@@ -26,11 +26,18 @@ import jakarta.validation.Valid;
 public class AdminController {
 	
 @Autowired
-private AdminService userService;
+private AdminService adminService;
 @PostMapping("/register")
 public ResponseEntity<ResponseStructure<AdminResponse>> createSuperAdmin(@RequestBody @Valid AdminRequest adminRequest){
-	return userService.createSuperAdmin(adminRequest);	
+	return adminService.createSuperAdmin(adminRequest);	
 	}
  
+
+@PostMapping("/warehuses/{warehouseId}/admins")
+public ResponseEntity<ResponseStructure<AdminResponse>> createAdmin(int  wareHouseId, @RequestBody AdminRequest adminRequest){
+	return adminService.createAdmin(wareHouseId,adminRequest);
+	
+	
+}
 	
 }

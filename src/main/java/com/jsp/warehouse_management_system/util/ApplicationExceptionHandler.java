@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.jsp.warehouse_management_system.exception.IllegalOperationException;
+import com.jsp.warehouse_management_system.exception.WareHouseNotFoundByIdException;
 
 @RestControllerAdvice
 public class ApplicationExceptionHandler {
@@ -43,14 +44,18 @@ public class ApplicationExceptionHandler {
 				.status(HttpStatus.BAD_REQUEST)
 				.body(new ErrorStructure<Map<String,String>>()
 						.setStatus(HttpStatus.BAD_REQUEST.value())
-						.setMessage("ivalid input")
+						.setMessage("invalid input")
 						.setRootCause(allErrors));
 	}
 
 	@ExceptionHandler
 	public ResponseEntity<ErrorStructure<String>> illegalOperationException(IllegalOperationException ioe){
-		return errorResponse(HttpStatus.NOT_FOUND, ioe.getMessage(), "Super admin is not Present");
+		return errorResponse(HttpStatus.NOT_FOUND, ioe.getMessage(), "Super admin already exists");
  
 	}
 
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> wareHouseNotFoundByIdException(WareHouseNotFoundByIdException exe){
+		return errorResponse(HttpStatus.NOT_FOUND, exe.getMessage(), "Ware HOuse is Not Present");
+	}
 }

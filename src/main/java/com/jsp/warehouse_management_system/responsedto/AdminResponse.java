@@ -3,7 +3,7 @@ package com.jsp.warehouse_management_system.responsedto;
 import java.util.List;
 
 import com.jsp.warehouse_management_system.enums.AdminType;
-import com.jsp.warehouse_management_system.enums.Privilage;
+import com.jsp.warehouse_management_system.enums.Privilege;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

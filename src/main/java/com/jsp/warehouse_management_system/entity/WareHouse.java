@@ -17,8 +17,10 @@ import lombok.Setter;
 public class WareHouse {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int WarehouseId;
+	private int wareHouseId;
 	private String name;
 	
+	@OneToOne
+	private Admin admin;
 
 }

@@ -6,12 +6,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.jsp.warehouse_management_system.entity.Admin;
+import com.jsp.warehouse_management_system.entity.WareHouse;
 import com.jsp.warehouse_management_system.enums.AdminType;
-import com.jsp.warehouse_management_system.enums.Privilage;
+import com.jsp.warehouse_management_system.enums.Privilege;
 import com.jsp.warehouse_management_system.exception.IllegalOperationException;
+import com.jsp.warehouse_management_system.exception.WareHouseNotFoundByIdException;
 import com.jsp.warehouse_management_system.mapper.AdminMapper;
 import com.jsp.warehouse_management_system.repository.AdminRepository;
-
+import com.jsp.warehouse_management_system.repository.WareHouseRespository;
 import com.jsp.warehouse_management_system.requestdto.AdminRequest;
 import com.jsp.warehouse_management_system.responsedto.AdminResponse;
 import com.jsp.warehouse_management_system.service.AdminService;
@@ -25,6 +27,9 @@ public class AdminServiceImpl implements AdminService{
 
 	@Autowired
 	private AdminMapper adminMapper;
+	
+	@Autowired
+	private WareHouseRespository wareHouseRespository;
 
 	@Override
 	public ResponseEntity<ResponseStructure<AdminResponse>> createSuperAdmin(AdminRequest adminRequest) {
@@ -41,5 +46,27 @@ public class AdminServiceImpl implements AdminService{
 						.setStatus(HttpStatus.CREATED.value())
 						.setMessage("Super admin Created")
 						.setData(adminMapper.mapToAdminResponse(admin)));
-	} 
+	}
+
+	@Override
+	public ResponseEntity<ResponseStructure<AdminResponse>> createAdmin(int wareHouseId, AdminRequest adminRequest) {
+	    WareHouse warehouse = wareHouseRespository.findById(wareHouseId)
+	            .orElseThrow(() -> new WareHouseNotFoundByIdException("WareHouse not  Found"));
+	    
+	    
+	    Admin admin = adminMapper.mapToAdmin(adminRequest, new Admin());	   
+	    admin =adminRepository.save(admin);
+	    warehouse.setAdmin(admin);
+	    wareHouseRespository.save(warehouse);
+	    
+	    return ResponseEntity.status(HttpStatus.CREATED)
+				.body(new ResponseStructure<AdminResponse>()
+						.setStatus(HttpStatus.CREATED.value())
+						.setMessage("admin Created")
+						.setData(adminMapper.mapToAdminResponse(admin)));
+	    
+	}
+
+
 }
+

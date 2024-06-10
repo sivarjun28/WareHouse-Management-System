@@ -3,7 +3,7 @@ package com.jsp.warehouse_management_system.entity;
 import java.util.List;
 
 import com.jsp.warehouse_management_system.enums.AdminType;
-import com.jsp.warehouse_management_system.enums.Privilage;
+import com.jsp.warehouse_management_system.enums.Privilege;
 
 
 import jakarta.persistence.Entity;
@@ -34,5 +34,7 @@ private String email;
 private String password;
 @Enumerated(EnumType.STRING)
 AdminType adminType;
+
+ 
 
 }
