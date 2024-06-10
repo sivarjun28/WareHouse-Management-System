@@ -43,13 +43,13 @@ public class ApplicationExceptionHandler {
 				.status(HttpStatus.BAD_REQUEST)
 				.body(new ErrorStructure<Map<String,String>>()
 						.setStatus(HttpStatus.BAD_REQUEST.value())
-						.setMessage("ivalid input")
+						.setMessage("invalid input")
 						.setRootCause(allErrors));
 	}
 
 	@ExceptionHandler
 	public ResponseEntity<ErrorStructure<String>> illegalOperationException(IllegalOperationException ioe){
-		return errorResponse(HttpStatus.NOT_FOUND, ioe.getMessage(), "Super admin is not Present");
+		return errorResponse(HttpStatus.NOT_FOUND, ioe.getMessage(), "Super admin already exists");
  
 	}
 

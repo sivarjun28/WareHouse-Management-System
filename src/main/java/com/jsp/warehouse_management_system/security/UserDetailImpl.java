@@ -7,12 +7,12 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.jsp.warehouse_management_system.entity.Admin;
-import com.jsp.warehouse_management_system.enums.Privilage;
+import com.jsp.warehouse_management_system.enums.Privilege;
 
 import lombok.AllArgsConstructor;
 
 
-@AllArgsConstructor
+@AllArgsConstructor 
 public class UserDetailImpl implements UserDetails{
 
 	
@@ -23,8 +23,8 @@ public class UserDetailImpl implements UserDetails{
 		
 		
 		return admin.getAdminType()
-				.getPrivilages()
-			.stream().map(privilage -> new SimpleGrantedAuthority(privilage.name())).toList();
+				.getPrivileges()
+			.stream().map(privilege -> new SimpleGrantedAuthority(privilege.name())).toList();
 	}
 
 	@Override

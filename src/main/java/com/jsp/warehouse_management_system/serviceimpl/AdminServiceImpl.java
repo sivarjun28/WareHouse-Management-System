@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.jsp.warehouse_management_system.entity.Admin;
 import com.jsp.warehouse_management_system.enums.AdminType;
-import com.jsp.warehouse_management_system.enums.Privilage;
+import com.jsp.warehouse_management_system.enums.Privilege;
 import com.jsp.warehouse_management_system.exception.IllegalOperationException;
 import com.jsp.warehouse_management_system.mapper.AdminMapper;
 import com.jsp.warehouse_management_system.repository.AdminRepository;
@@ -41,5 +41,11 @@ public class AdminServiceImpl implements AdminService{
 						.setStatus(HttpStatus.CREATED.value())
 						.setMessage("Super admin Created")
 						.setData(adminMapper.mapToAdminResponse(admin)));
+	}
+
+	@Override
+	public ResponseEntity<ResponseStructure<AdminResponse>> createAdmin(AdminRequest adminRequest) {
+		// TODO Auto-generated method stub
+		return null;
 	} 
 }
