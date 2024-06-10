@@ -22,8 +22,7 @@ private int adminId;
 private String name;
 @Email(regexp = "[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,}", message = "invalid email ")
 private String email;
-@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$", 
-message = "Password must contain at least one letter, one number, one special character, and be at least 8 characters long")
+ 
 private String password;
 
 
