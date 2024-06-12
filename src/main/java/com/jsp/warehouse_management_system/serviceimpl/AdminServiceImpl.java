@@ -54,11 +54,12 @@ public class AdminServiceImpl implements AdminService{
 	            .orElseThrow(() -> new WareHouseNotFoundByIdException("WareHouse not  Found"));
 	    
 	    
-	    Admin admin = adminMapper.mapToAdmin(adminRequest, new Admin());	   
+	    Admin admin = adminMapper.mapToAdmin(adminRequest, new Admin());	
+	    admin.setAdminType(AdminType.ADMIN);
 	    admin =adminRepository.save(admin);
 	    warehouse.setAdmin(admin);
 	    wareHouseRespository.save(warehouse);
-	    admin.setAdminType(AdminType.ADMIN);;
+	   
 	    return ResponseEntity.status(HttpStatus.CREATED)
 				.body(new ResponseStructure<AdminResponse>()
 						.setStatus(HttpStatus.CREATED.value())
