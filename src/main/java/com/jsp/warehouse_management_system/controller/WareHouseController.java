@@ -20,6 +20,8 @@ import com.jsp.warehouse_management_system.responsedto.WareHouseResponse;
 import com.jsp.warehouse_management_system.service.WareHouseService;
 import com.jsp.warehouse_management_system.util.ResponseStructure;
 
+import jakarta.validation.Valid;
+
 
 
 @RestController 
@@ -31,14 +33,14 @@ private WareHouseService wareHouseService;
 		
 	@PreAuthorize("hasAuthority('CREATE_WAREHOUSE')")
 	@PostMapping("/warehouses")
-	public ResponseEntity<ResponseStructure<WareHouseResponse>> createWareHouse(@RequestBody WareHouseRequest wareHouseRequest){
+	public ResponseEntity<ResponseStructure<WareHouseResponse>> createWareHouse(@RequestBody @Valid WareHouseRequest wareHouseRequest){
 		return wareHouseService.createWareHouse(wareHouseRequest);
 	}
 	
 
 @PreAuthorize("hasAuthority('UPDATE_WAREHOUSE')")
 @PutMapping("/warehouses/{wareHouseId}")
-public ResponseEntity<ResponseStructure<WareHouseResponse>> updateWareHouse(@PathVariable int wareHouseId,@RequestBody WareHouseRequest wareHouseRequest){
+public ResponseEntity<ResponseStructure<WareHouseResponse>> updateWareHouse(@PathVariable int wareHouseId,@RequestBody @Valid WareHouseRequest wareHouseRequest){
 	return wareHouseService.updateWareHouse(wareHouseId,wareHouseRequest);
 }
 

@@ -10,20 +10,24 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Entity
 @Setter
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
-@Entity
-public class WareHouse {
+@NoArgsConstructor
+public class Address {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int wareHouseId;
-	private String name;
+	private int addressId;
+	private String addressLine;
+	private String city;
+	private String state;
+	private String country;
+	private int pincode;
+	private String latitude;
+	private String longitude;
 
 	@OneToOne
-	private Admin admin;
-
-	
-
+	private WareHouse wareHouse;
 }

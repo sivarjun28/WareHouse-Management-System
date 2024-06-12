@@ -12,6 +12,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.jsp.warehouse_management_system.exception.AddressNotFoundByIdException;
 import com.jsp.warehouse_management_system.exception.AdminNotFoundByIdException;
 import com.jsp.warehouse_management_system.exception.IllegalOperationException;
 import com.jsp.warehouse_management_system.exception.WareHouseNotFoundByIdException;
@@ -52,16 +53,20 @@ public class ApplicationExceptionHandler {
 	@ExceptionHandler
 	public ResponseEntity<ErrorStructure<String>> illegalOperationException(IllegalOperationException ioe){
 		return errorResponse(HttpStatus.NOT_FOUND, ioe.getMessage(), "Super admin already exists");
- 
+
 	}
 
 	@ExceptionHandler
 	public ResponseEntity<ErrorStructure<String>> wareHouseNotFoundByIdException(WareHouseNotFoundByIdException exe){
 		return errorResponse(HttpStatus.NOT_FOUND, exe.getMessage(), "Ware HOuse is Not Present");
 	}
-	
+
 	@ExceptionHandler
 	public ResponseEntity<ErrorStructure<String>> adminNotFoundByIdException(AdminNotFoundByIdException exec){
 		return errorResponse(HttpStatus.NOT_FOUND, exec.getMessage(), "Admin Not Found Id Exception");
+	}
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> addressNotFoundByIdException(AddressNotFoundByIdException aexc){
+		return errorResponse(HttpStatus.NOT_FOUND, aexc.getMessage(), "Admin Not Found Id Exception");
 	}
 }
