@@ -40,7 +40,7 @@ public ResponseEntity<ResponseStructure<AdminResponse>> createSuperAdmin(@Reques
 
 @PreAuthorize("hasAuthority('CREATE_WAREHOUSE')")
 @PostMapping("/{wareHouseId}/admins")
-public ResponseEntity<ResponseStructure<AdminResponse>> createAdmin(@PathVariable int  wareHouseId, @RequestBody AdminRequest adminRequest){
+public ResponseEntity<ResponseStructure<AdminResponse>> createAdmin(@PathVariable int  wareHouseId, @RequestBody @Valid AdminRequest adminRequest){
 	return adminService.createAdmin(wareHouseId,adminRequest);
 	  
 }
@@ -53,7 +53,7 @@ public ResponseEntity<ResponseStructure<AdminResponse>> updateAdmin(@RequestBody
 
 @PreAuthorize("hasAuthority('UPDATE_ADMIN')")
 @PutMapping("/admins/{adminId}")
-public ResponseEntity<ResponseStructure<AdminResponse>> updateAdminBySuperAdmin(@PathVariable int adminId, @RequestBody AdminRequest adminRequest){
+public ResponseEntity<ResponseStructure<AdminResponse>> updateAdminBySuperAdmin(@PathVariable int adminId, @RequestBody @Valid AdminRequest adminRequest){
 	
 	return adminService.updateAdminBySuperAdmin(adminId, adminRequest);
 	

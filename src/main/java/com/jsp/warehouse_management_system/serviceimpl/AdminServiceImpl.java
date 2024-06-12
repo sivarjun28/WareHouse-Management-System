@@ -126,7 +126,7 @@ public class AdminServiceImpl implements AdminService{
 	public ResponseEntity<ResponseStructure<List<AdminResponse>>> findAdmins() {
 		
 		
-		List<AdminResponse> adminResponses= adminRepository.findAll().stream().map(admins ->
+		List<AdminResponse> adminResponses= adminRepository.findAllByAdminType(AdminType.ADMIN).stream().map(admins ->
 			adminMapper.mapToAdminResponse(admins))
 			.toList();
 		
