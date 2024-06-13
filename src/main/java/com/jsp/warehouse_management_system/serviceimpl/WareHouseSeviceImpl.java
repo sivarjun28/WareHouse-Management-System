@@ -1,7 +1,10 @@
 package com.jsp.warehouse_management_system.serviceimpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -64,5 +67,21 @@ public class WareHouseSeviceImpl implements WareHouseService{
 		}).orElseThrow(()-> new WareHouseNotFoundByIdException("WareHouse Not Found"));
 
 	}
+	@Override
+	public ResponseEntity<ResponseStructure<List<WareHouseResponse>>> findWareHouses() {
+	  
+	    List<WareHouseResponse> wareHouseResponses = wareHouseRespository.findAll()
+	            .stream()
+	            .map(wareHouse -> wareHouseMapper.mapToWareHouseResponse(wareHouse))
+	            .toList();
+
+	    
+	    return ResponseEntity.status(HttpStatus.FOUND)
+	            .body(new ResponseStructure<List<WareHouseResponse>>()
+	                    .setStatus(HttpStatus.FOUND.value())
+	                    .setMessage("WareHouse Found")
+	                    .setData(wareHouseResponses));
+	}
+
 
 } 

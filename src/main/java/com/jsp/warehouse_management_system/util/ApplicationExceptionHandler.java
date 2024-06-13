@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.jsp.warehouse_management_system.exception.AddressNotFoundByIdException;
 import com.jsp.warehouse_management_system.exception.AdminNotFoundByIdException;
 import com.jsp.warehouse_management_system.exception.IllegalOperationException;
+import com.jsp.warehouse_management_system.exception.StorageNotFoundByIdException;
 import com.jsp.warehouse_management_system.exception.WareHouseNotFoundByIdException;
 
 @RestControllerAdvice
@@ -68,5 +69,10 @@ public class ApplicationExceptionHandler {
 	@ExceptionHandler
 	public ResponseEntity<ErrorStructure<String>> addressNotFoundByIdException(AddressNotFoundByIdException aexc){
 		return errorResponse(HttpStatus.NOT_FOUND, aexc.getMessage(), "Admin Not Found Id Exception");
+	}
+	
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> storageNotFoundByException(StorageNotFoundByIdException exe){
+		return errorResponse(HttpStatus.NOT_FOUND, exe.getMessage(),"Storage is not found by Id");
 	}
 }
