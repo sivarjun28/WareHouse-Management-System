@@ -112,7 +112,7 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public ResponseEntity<ResponseStructure<AdminResponse>> findAdmin(int adminId) {
 		return adminRepository.findById(adminId).map(admin ->{
-			
+
 			return ResponseEntity.status(HttpStatus.FOUND)
 					.body(new ResponseStructure<AdminResponse>().
 							setStatus(HttpStatus.FOUND.value())
@@ -124,18 +124,18 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public ResponseEntity<ResponseStructure<List<AdminResponse>>> findAdmins() {
-		
-		
+
+
 		List<AdminResponse> adminResponses= adminRepository.findAllByAdminType(AdminType.ADMIN).stream().map(admins ->
-			adminMapper.mapToAdminResponse(admins))
-			.toList();
-		
+		adminMapper.mapToAdminResponse(admins))
+				.toList();
+
 		return ResponseEntity.status(HttpStatus.FOUND)
 				.body(new ResponseStructure<List<AdminResponse>>().
 						setStatus(HttpStatus.FOUND.value())
 						.setMessage("Admin found")
 						.setData(adminResponses));
-		
+
 	}
 }
 
