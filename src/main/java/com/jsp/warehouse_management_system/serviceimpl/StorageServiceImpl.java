@@ -43,27 +43,29 @@ public class StorageServiceImpl implements StorageService{
 
 		WareHouse wareHouse =  wareHouseRespository.findById(wareHouseId).orElseThrow(()-> new WareHouseNotFoundByIdException(""));
 
-			List<Storage> storages = new ArrayList<Storage>();
-			
-			int count = 0;
+		List<Storage> storages = new ArrayList<Storage>();
 
-			while(noOfStorageUnits > 0) {
-			
+		int count = 0;
+
+		while(noOfStorageUnits > 0) {
+
 			Storage storage  = storageMapper.mapToStorage(storageRequest, new Storage());
-			
-			
-			
+
+
+
 			storage.setMaxAdditionalWeight(storageRequest.getCapacityInWeight());
 			storage.setAvailableArea(storageRequest.getLengthInMeters() * storageRequest.getBreadthInMeters() * storageRequest.getHeightInMeters());
 			storage.setWareHouse(wareHouse);
-			
+
+			wareHouse.setTotalCapacityInKg(storage.getCapacityInWeight() * noOfStorageUnits + wareHouse.getTotalCapacityInKg());
+
 			storages.add(storage);
 			count++;
 			noOfStorageUnits --;
 		}
-		
+
 		storageRepository.saveAll(storages);
-//		wareHouseRespository.save(wareHouse);
+		wareHouseRespository.save(wareHouse);
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(new SimpleStructure<String>()
 				.setStatus(HttpStatus.CREATED.value())
