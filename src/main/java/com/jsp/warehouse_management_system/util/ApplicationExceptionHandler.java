@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.jsp.warehouse_management_system.exception.AddressNotFoundByIdException;
 import com.jsp.warehouse_management_system.exception.AdminNotFoundByIdException;
+import com.jsp.warehouse_management_system.exception.ClientNotFoundByIdException;
 import com.jsp.warehouse_management_system.exception.IllegalOperationException;
 import com.jsp.warehouse_management_system.exception.StorageNotFoundByIdException;
+import com.jsp.warehouse_management_system.exception.WareHouseNotFoundByCityException;
 import com.jsp.warehouse_management_system.exception.WareHouseNotFoundByIdException;
 
 @RestControllerAdvice
@@ -74,5 +76,14 @@ public class ApplicationExceptionHandler {
 	@ExceptionHandler
 	public ResponseEntity<ErrorStructure<String>> storageNotFoundByException(StorageNotFoundByIdException exe){
 		return errorResponse(HttpStatus.NOT_FOUND, exe.getMessage(),"Storage is not found by Id");
+	}
+	
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> wareHouseNotFoundByCityException(WareHouseNotFoundByCityException exe){
+		return errorResponse(HttpStatus.NOT_FOUND, exe.getMessage(),"WareHouse Not found By City Name");
+	}
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> clientNotFoundByIdException(ClientNotFoundByIdException exe){
+		return errorResponse(HttpStatus.NOT_FOUND, exe.getMessage(),"Client not Found based on Id");
 	}
 }

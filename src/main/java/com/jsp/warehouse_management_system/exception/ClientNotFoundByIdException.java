@@ -1,4 +1,4 @@
-package com.jsp.warehouse_management_system.requestdto;
+package com.jsp.warehouse_management_system.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,10 +9,8 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class WareHouseRequest {
-	
-	private String name;
-	
-	
+public class ClientNotFoundByIdException extends RuntimeException{
+
+	private String message;
 	
 }

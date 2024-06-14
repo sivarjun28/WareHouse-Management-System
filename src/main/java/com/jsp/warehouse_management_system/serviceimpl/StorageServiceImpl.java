@@ -20,6 +20,7 @@ import com.jsp.warehouse_management_system.repository.StorageRepository;
 import com.jsp.warehouse_management_system.repository.WareHouseRespository;
 import com.jsp.warehouse_management_system.requestdto.StorageRequest;
 import com.jsp.warehouse_management_system.responsedto.StorageResponse;
+import com.jsp.warehouse_management_system.responsedto.WareHouseResponse;
 import com.jsp.warehouse_management_system.service.StorageService;
 import com.jsp.warehouse_management_system.util.ResponseStructure;
 import com.jsp.warehouse_management_system.util.SimpleStructure;
@@ -36,6 +37,8 @@ public class StorageServiceImpl implements StorageService{
 
 	@Autowired
 	private StorageMapper storageMapper;
+	
+	
 
 	@Override
 	public ResponseEntity<SimpleStructure<String>> createStorage(StorageRequest storageRequest,
@@ -50,9 +53,6 @@ public class StorageServiceImpl implements StorageService{
 		while(noOfStorageUnits > 0) {
 
 			Storage storage  = storageMapper.mapToStorage(storageRequest, new Storage());
-
-
-
 			storage.setMaxAdditionalWeight(storageRequest.getCapacityInWeight());
 			storage.setAvailableArea(storageRequest.getLengthInMeters() * storageRequest.getBreadthInMeters() * storageRequest.getHeightInMeters());
 			storage.setWareHouse(wareHouse);

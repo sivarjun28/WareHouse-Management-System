@@ -5,14 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter
 @Getter
-@NoArgsConstructor
+@Setter
 @AllArgsConstructor
-public class WareHouseRequest {
-	
-	private String name;
-	
-	
+@NoArgsConstructor
+public class ClientRequest {
+
+	private String businessName;
+	private String email;
+	private long contactNumber;
 	
 }
