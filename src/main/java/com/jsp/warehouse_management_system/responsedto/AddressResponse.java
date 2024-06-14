@@ -1,5 +1,7 @@
 package com.jsp.warehouse_management_system.responsedto;
 
+import com.jsp.warehouse_management_system.entity.WareHouse;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

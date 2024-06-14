@@ -18,6 +18,8 @@ public interface WareHouseService {
 	public ResponseEntity<ResponseStructure<WareHouseResponse>> findWareHouse(int wareHouseId);
 
 	public ResponseEntity<ResponseStructure<List<WareHouseResponse>>> findWareHouses();
+
+	public ResponseEntity<ResponseStructure<List<WareHouseResponse>>> findWarehousesByCity(String city);
 	
 	
 		

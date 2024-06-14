@@ -1,8 +1,10 @@
 package com.jsp.warehouse_management_system.serviceimpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -10,11 +12,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.jsp.warehouse_management_system.entity.Address;
 import com.jsp.warehouse_management_system.entity.WareHouse;
 import com.jsp.warehouse_management_system.enums.AdminType;
 import com.jsp.warehouse_management_system.enums.Privilege;
+import com.jsp.warehouse_management_system.exception.WareHouseNotFoundByCityException;
 import com.jsp.warehouse_management_system.exception.WareHouseNotFoundByIdException;
 import com.jsp.warehouse_management_system.mapper.WareHouseMapper;
+import com.jsp.warehouse_management_system.repository.AddressRepository;
 import com.jsp.warehouse_management_system.repository.WareHouseRespository;
 import com.jsp.warehouse_management_system.requestdto.WareHouseRequest;
 import com.jsp.warehouse_management_system.responsedto.AdminResponse;
@@ -28,8 +33,13 @@ public class WareHouseSeviceImpl implements WareHouseService{
 
 	@Autowired
 	private WareHouseMapper wareHouseMapper;
+
 	@Autowired
 	private WareHouseRespository wareHouseRespository;
+
+	@Autowired
+	private AddressRepository addressRepository;
+
 	@Override
 	public ResponseEntity<ResponseStructure<WareHouseResponse>> createWareHouse(WareHouseRequest wareHouseRequest) {
 		WareHouse wareHouse =wareHouseRespository.save(wareHouseMapper.mapToWareHouse(wareHouseRequest, new WareHouse()));
@@ -69,18 +79,36 @@ public class WareHouseSeviceImpl implements WareHouseService{
 	}
 	@Override
 	public ResponseEntity<ResponseStructure<List<WareHouseResponse>>> findWareHouses() {
-	  
-	    List<WareHouseResponse> wareHouseResponses = wareHouseRespository.findAll()
-	            .stream()
-	            .map(wareHouse -> wareHouseMapper.mapToWareHouseResponse(wareHouse))
-	            .toList();
 
-	    
-	    return ResponseEntity.status(HttpStatus.FOUND)
-	            .body(new ResponseStructure<List<WareHouseResponse>>()
-	                    .setStatus(HttpStatus.FOUND.value())
-	                    .setMessage("WareHouse Found")
-	                    .setData(wareHouseResponses));
+		List<WareHouseResponse> wareHouseResponses = wareHouseRespository.findAll()
+				.stream()
+				.map(wareHouse -> wareHouseMapper.mapToWareHouseResponse(wareHouse))
+				.toList();
+
+
+		return ResponseEntity.status(HttpStatus.FOUND)
+				.body(new ResponseStructure<List<WareHouseResponse>>()
+						.setStatus(HttpStatus.FOUND.value())
+						.setMessage("WareHouse Found")
+						.setData(wareHouseResponses));
+	}
+	@Override
+	public ResponseEntity<ResponseStructure <List<WareHouseResponse>>> findWarehousesByCity(String city) {
+
+		
+
+		List<WareHouseResponse> cities = addressRepository.findAllByCity(city).stream().map(address ->
+		wareHouseMapper.mapToWareHouseAddress(address,address.getWareHouse())).toList();
+		
+		if(cities.isEmpty())
+			throw new WareHouseNotFoundByCityException("ware House is not found By city");
+		
+			return	ResponseEntity.status(HttpStatus.FOUND)
+				.body(new ResponseStructure<List<WareHouseResponse>>()
+
+						.setStatus(HttpStatus.FOUND.value())
+						.setMessage("found All Cities")
+						.setData(cities));
 	}
 
 

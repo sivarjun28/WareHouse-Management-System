@@ -59,6 +59,11 @@ public ResponseEntity<ResponseStructure<List<WareHouseResponse>>> findWareHouses
     return wareHouseService.findWareHouses();
 }
 
+@GetMapping("cities/{city}/warehouses")
+public ResponseEntity<ResponseStructure<List<WareHouseResponse>>> findWarehousesByCity(@PathVariable String city) {
+    return wareHouseService.findWarehousesByCity(city);
+}
+
 
 }
 
