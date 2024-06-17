@@ -28,15 +28,15 @@ public class Storage {
 	private int storageId;
 	private String blockName;
 	private String section;
-	private double lengthInMeters;
-	private double breadthInMeters;
-	private double heightInMeters;
-	private double capacityInWeight;
 	@Enumerated(EnumType.STRING)
 	List<MaterialType> materialTypes;
 	private double maxAdditionalWeight;
 	private double availableArea;
+	private int selletId;
 
 	@ManyToOne
 	private WareHouse wareHouse;
+	
+	@ManyToOne
+	private StorageType storageType;
 }

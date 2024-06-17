@@ -21,7 +21,6 @@ public class ClientMapper {
 	public ApiKeyResponse mapToApiKeyResponse(Client client) {
 		return ApiKeyResponse.builder()
 				.apiKey(client.getApiKey())
-				.message("created")
 				.build();
 				
 	}
@@ -34,4 +33,5 @@ public class ClientMapper {
 				.contactNumber(client.getContactNumber())
 				.build();
 	}
+	
 }

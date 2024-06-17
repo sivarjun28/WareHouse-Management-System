@@ -17,6 +17,7 @@ import com.jsp.warehouse_management_system.exception.AdminNotFoundByIdException;
 import com.jsp.warehouse_management_system.exception.ClientNotFoundByIdException;
 import com.jsp.warehouse_management_system.exception.IllegalOperationException;
 import com.jsp.warehouse_management_system.exception.StorageNotFoundByIdException;
+import com.jsp.warehouse_management_system.exception.StorageTypeNotFoundByIdException;
 import com.jsp.warehouse_management_system.exception.WareHouseNotFoundByCityException;
 import com.jsp.warehouse_management_system.exception.WareHouseNotFoundByIdException;
 
@@ -85,5 +86,10 @@ public class ApplicationExceptionHandler {
 	@ExceptionHandler
 	public ResponseEntity<ErrorStructure<String>> clientNotFoundByIdException(ClientNotFoundByIdException exe){
 		return errorResponse(HttpStatus.NOT_FOUND, exe.getMessage(),"Client not Found based on Id");
+	}
+	
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> storageTypeNotFoundByIdException(StorageTypeNotFoundByIdException exe){
+		return errorResponse(HttpStatus.NOT_FOUND, exe.getMessage(),"storageType not found");
 	}
 }

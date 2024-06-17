@@ -40,7 +40,7 @@ public class ClientServiceImpl implements ClientService{
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(new ResponseStructure<ApiKeyResponse>()
 						.setStatus(HttpStatus.CREATED.value())
-						.setMessage("Api Key Created")
+						.setMessage("Client data created  API key has been generated and stored securely. Please ensure to keep it safe.")
 						.setData(clientMapper.mapToApiKeyResponse(client)));
 
 	}
