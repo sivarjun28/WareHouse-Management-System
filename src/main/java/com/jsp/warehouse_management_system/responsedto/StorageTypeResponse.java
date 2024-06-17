@@ -8,11 +8,18 @@ import lombok.Setter;
 
 @Setter
 @Getter
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ApiKeyResponse {
+public class StorageTypeResponse {
 
-	private String apiKey;
+	
+	private int storageTypeId;
+	private double lengthInMeters;
+	private double breadthInMeters;
+	private double heightInMeters;
+	private double capacityInWeight;
+	private int unitsAvailable;
 	
 }
