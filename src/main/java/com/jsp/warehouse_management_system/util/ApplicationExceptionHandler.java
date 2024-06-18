@@ -16,6 +16,7 @@ import com.jsp.warehouse_management_system.exception.AddressNotFoundByIdExceptio
 import com.jsp.warehouse_management_system.exception.AdminNotFoundByIdException;
 import com.jsp.warehouse_management_system.exception.ClientNotFoundByIdException;
 import com.jsp.warehouse_management_system.exception.IllegalOperationException;
+import com.jsp.warehouse_management_system.exception.InventoryNotFoundByIdException;
 import com.jsp.warehouse_management_system.exception.StorageNotFoundByIdException;
 import com.jsp.warehouse_management_system.exception.StorageTypeNotFoundByIdException;
 import com.jsp.warehouse_management_system.exception.UsernameNotFoundException;
@@ -97,4 +98,10 @@ public class ApplicationExceptionHandler {
 	public ResponseEntity<ErrorStructure<String>> usernameNotFoundException(UsernameNotFoundException exception){
 		return errorResponse(HttpStatus.NOT_FOUND, exception.getMessage(),"user not found");
 	}
+	
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> inventoryNotFoundByIdException(InventoryNotFoundByIdException exception){
+		return errorResponse(HttpStatus.NOT_FOUND, exception.getMessage(),"inventory not found based on Id given");
+	}
+	
 }
