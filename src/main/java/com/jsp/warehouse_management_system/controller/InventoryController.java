@@ -45,10 +45,9 @@ public class InventoryController {
 		return inventoryService.findAllInventories();
 	}
 	
-	@PutMapping("client/{productId}/inventories")
+	@PutMapping("client/{productId}/{storageId}inventories")
 	public ResponseEntity<ResponseStructure<InventoryResponse>> updateInventory
-							(@PathVariable int productId, @RequestBody InventoryRequest inventoryRequest) {
-		
+							(@PathVariable int productId ,@RequestBody InventoryRequest inventoryRequest) {
 		return inventoryService.updateInventory(productId, inventoryRequest);
 	}
 }
