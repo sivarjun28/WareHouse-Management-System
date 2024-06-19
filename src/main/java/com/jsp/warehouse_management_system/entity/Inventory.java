@@ -39,6 +39,9 @@ public class Inventory {
 	@ManyToOne
 	private Client client;
 	
+	@ManyToMany(mappedBy = "inventories")
+	private List<PurchaseOrder> purchaseOrders;
+	
 	
 	
 }

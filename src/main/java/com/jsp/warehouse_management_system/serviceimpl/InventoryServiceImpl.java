@@ -14,6 +14,7 @@ import com.jsp.warehouse_management_system.entity.Inventory;
 import com.jsp.warehouse_management_system.entity.Storage;
 import com.jsp.warehouse_management_system.exception.ClientNotFoundByIdException;
 import com.jsp.warehouse_management_system.exception.InventoryNotFoundByIdException;
+import com.jsp.warehouse_management_system.exception.SpaceOrWeightNotAvailableException;
 import com.jsp.warehouse_management_system.exception.StorageNotFoundByIdException;
 import com.jsp.warehouse_management_system.mapper.InventoryMapper;
 import com.jsp.warehouse_management_system.repository.ClientRepository;
@@ -71,7 +72,7 @@ public class InventoryServiceImpl implements InventoryService{
 						
 	}
 
-	@Override
+	@Override 
 	public ResponseEntity<ResponseStructure<InventoryResponse>> findInventory(int productId) {
 		
 		return inventoryRepository.findById(productId).map(inventory ->{
@@ -98,28 +99,50 @@ public class InventoryServiceImpl implements InventoryService{
 	}
 
 	@Override
-	public ResponseEntity<ResponseStructure<InventoryResponse>> updateInventory(int productId,
-			InventoryRequest inventoryRequest) {
-		
-		return  inventoryRepository.findById(productId)
-				 .map(existingInventory -> { 
-		
-		 existingInventory = inventoryRepository.save(inventoryMapper.mapToInventory(inventoryRequest, existingInventory));
-		 
-		 
-		 return ResponseEntity.status(HttpStatus.OK)
-					.body(new ResponseStructure<InventoryResponse>()
-							.setStatus(HttpStatus.OK.value())
-							.setMessage("Inventory created")
-							.setData(inventoryMapper.mapToInventoryResponse(existingInventory)));
-		 
-				 }).orElseThrow(()-> new InventoryNotFoundByIdException("Inventory Not found"));
-		
+	public ResponseEntity<ResponseStructure<InventoryResponse>> updateInventory(int productId, InventoryRequest inventoryRequest) {
+
+	    return inventoryRepository.findById(productId)
+	        .map(existingInventory -> {
+	            
+	            int oldQuantity = existingInventory.getQuantity();
+	            double originalWeight = existingInventory.getWeightInKg() * existingInventory.getQuantity();
+	            double originalArea = existingInventory.getLengthInMeters() *
+	                                 existingInventory.getBreadthInMeters() * existingInventory.getHeightInMeters();
+	            
+	            existingInventory = inventoryMapper.mapToInventory(inventoryRequest, existingInventory);
+	            
+	            if (oldQuantity != existingInventory.getQuantity())
+	                existingInventory.setRestockedAt(LocalDate.now());
+	            
+	            double newWeight = existingInventory.getWeightInKg() * existingInventory.getQuantity();
+	            double newArea = existingInventory.getLengthInMeters() * existingInventory.getBreadthInMeters() 
+	                            * existingInventory.getHeightInMeters();
+	            
+	            existingInventory.getStorages().forEach(storage -> {
+	                if (storage.getAvailableArea() > 0 && storage.getMaxAdditionalWeight() > 0) {
+	                    storage.setMaxAdditionalWeight(storage.getMaxAdditionalWeight() + originalWeight - newWeight);
+	                    storage.setAvailableArea(storage.getAvailableArea() + originalArea - newArea);
+	                } else {
+	                    throw new SpaceOrWeightNotAvailableException("No available area or capacity of storage full");
+	                }
+	            });
+	            
+	            existingInventory = inventoryRepository.save(existingInventory);
+	            existingInventory.getStorages().forEach(storageRepository::save);
+	           
+	            return ResponseEntity.status(HttpStatus.OK)
+	                .body(new ResponseStructure<InventoryResponse>()
+	                    .setStatus(HttpStatus.OK.value())
+	                    .setMessage("Inventory updates")
+	                    .setData(inventoryMapper.mapToInventoryResponse(existingInventory)));
+	        }).orElseThrow(() -> new InventoryNotFoundByIdException("Product not found"));
 	}
 
 
+
 		
 		
-	}
+	
+}
 
 
