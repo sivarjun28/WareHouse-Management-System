@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdminNotFoundException extends Exception{
+public class WareHouseNotFoundByIdException extends RuntimeException{
 
 	private String message;
 }

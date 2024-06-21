@@ -1,6 +1,6 @@
 package com.jsp.warehouse_management_system.enums;
 
-public enum Privilage {
+public enum Privilege {
 
 	CREATE_ADMIN,
 	CREATE_WAREHOUSE,
@@ -9,7 +9,7 @@ public enum Privilage {
 	
 	READ,
 	
-	UPADTE_ADMIN,
+	UPDATE_ADMIN,
 	UPDATE_WAREHOUSE,
 	UPDATE_ADDRESS,
 	UPDATE_STORAGE,
