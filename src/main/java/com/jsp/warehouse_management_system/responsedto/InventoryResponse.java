@@ -19,8 +19,10 @@ import lombok.Setter;
 public class InventoryResponse {
 	
 	private int productId;
-	private int quantity;
+	private String productTitle;
 	List<MaterialType> materialTypes;
 	private LocalDate restockedAt;
 	private int sellerId;
+	
+	private BatchResponse batch;
 }

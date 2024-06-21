@@ -16,12 +16,14 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Batch {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int batchId;
-	int quantity;
-	
-	@ManyToOne
-	private Inventory inventory;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int batchId;
+    private int quantity;
+
+    @ManyToOne
+    private Inventory inventory;
+
+    @ManyToOne
+    private Storage storage;
 }
