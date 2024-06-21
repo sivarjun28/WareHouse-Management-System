@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jsp.warehouse_management_system.requestdto.InventoryRequest;
+import com.jsp.warehouse_management_system.responsedto.BatchResponse;
 import com.jsp.warehouse_management_system.responsedto.InventoryResponse;
 import com.jsp.warehouse_management_system.service.InventoryService;
 import com.jsp.warehouse_management_system.util.ResponseStructure;
@@ -32,9 +33,9 @@ public class InventoryController {
 	
 	@PostMapping("client/storages/{storageId}/inventories")
 	public ResponseEntity<ResponseStructure<InventoryResponse>> createInventory(@PathVariable int storageId, 
-			@PathVariable int clientId,@RequestBody InventoryRequest inventoryRequest) {
+			@PathVariable int clientId, int quantity,@RequestBody InventoryRequest inventoryRequest) {
 		
-		return  inventoryService.createInventory(storageId,clientId, inventoryRequest);
+		return  inventoryService.createInventory(storageId,clientId,quantity, inventoryRequest);
 	}
 	@GetMapping("client/{productId}/inventories")
 	public ResponseEntity<ResponseStructure<InventoryResponse>> findInventory(@PathVariable int productId) {
@@ -45,9 +46,19 @@ public class InventoryController {
 		return inventoryService.findAllInventories();
 	}
 	
-	@PutMapping("client/{productId}/inventories")
+
+	@PutMapping("{productId}/inventories")
+
 	public ResponseEntity<ResponseStructure<InventoryResponse>> updateInventory
 							(@PathVariable int productId ,@RequestBody InventoryRequest inventoryRequest) {
 		return inventoryService.updateInventory(productId, inventoryRequest);
 	}
+	
+	@PutMapping("/{storageId}/{productId}/inventories")
+	public  ResponseEntity<ResponseStructure<List<BatchResponse>>> updateQuantity
+		(@PathVariable  int storageId,@PathVariable int productId,@RequestParam int quantity){
+		
+		return inventoryService.updateQuantity(storageId, productId, quantity);
+	}
+	
 }

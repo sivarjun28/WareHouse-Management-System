@@ -18,6 +18,7 @@ import lombok.Setter;
 public class InventoryRequest {
 
 	private double lengthInMeters;
+private String productTitle;
 	private double breadthInMeters;
 	private double heightInMeters;
 	private double weightInKg;

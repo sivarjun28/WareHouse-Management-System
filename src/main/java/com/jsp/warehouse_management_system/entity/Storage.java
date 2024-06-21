@@ -10,13 +10,12 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 
 @Entity
 @Setter
@@ -24,23 +23,25 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Storage {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int storageId;
-	private String blockName;
-	private String section;
-	@Enumerated(EnumType.STRING)
-	List<MaterialType> materialTypes;
-	private double maxAdditionalWeight;
-	private double availableArea;
-	private int selletId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int storageId;
+    private String blockName;
+    private String section;
 
-	@ManyToOne
-	private WareHouse wareHouse;
-	
-	@ManyToOne
-	private StorageType storageType;
-	
-	@ManyToMany
-	private List<Inventory> inventories;
+    @Enumerated(EnumType.STRING)
+    private List<MaterialType> materialTypes;
+
+    private double maxAdditionalWeight;
+    private double availableArea;
+    private int sellerId;
+
+    @ManyToOne
+    private WareHouse wareHouse;
+
+    @ManyToOne
+    private StorageType storageType;
+
+    @OneToMany(mappedBy = "storage")
+    private List<Batch> batches;
 }
